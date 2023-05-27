@@ -7,12 +7,17 @@
 </template>
 
 <script setup lang="ts">
-import useCountStore from '@/stores/count'
+import useCountStore from '@/store/count'
+import hyRequest from '@/service'
 
 const countStore = useCountStore()
 function changeCount() {
   countStore.countPlusOneAction()
 }
+
+hyRequest.get({ url: '/home/multidata' }).then((res) => {
+  console.log(res)
+})
 </script>
 
 <style lang="less" scoped>
