@@ -2,7 +2,8 @@
   <div class="login-panel">
     <h1 class="title">Dylan CMS</h1>
     <div class="tabs">
-      <el-tabs type="border-card" stretch="true" v-model="tabStatus">
+      <el-tabs type="border-card" stretch v-model="tabStatus">
+        <!-- 账号登录的pane -->
         <el-tab-pane name="account">
           <template #label>
             <div class="label">
@@ -10,8 +11,9 @@
               <div class="text">账号登录</div>
             </div>
           </template>
-          <div>hahaha</div>
+          <pane-account></pane-account>
         </el-tab-pane>
+        <!-- 手机登录的pane -->
         <el-tab-pane name="phone">
           <template #label>
             <div class="label">
@@ -35,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import PaneAccount from './pane-account.vue'
 
 const isRememberPwd = ref(false)
 const tabStatus = ref<string>('account')
