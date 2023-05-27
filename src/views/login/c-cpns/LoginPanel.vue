@@ -2,16 +2,34 @@
   <div class="login-panel">
     <h1 class="title">Dylan CMS</h1>
     <div class="tabs">
-      <el-tabs type="border-card" stretch="true">
-        <el-tab-pane label="账号登录">User</el-tab-pane>
-        <el-tab-pane label="手机登录">Config</el-tab-pane>
+      <el-tabs type="border-card" stretch="true" v-model="tabStatus">
+        <el-tab-pane name="account">
+          <template #label>
+            <div class="label">
+              <el-icon><User /></el-icon>
+              <div class="text">账号登录</div>
+            </div>
+          </template>
+          <div>hahaha</div>
+        </el-tab-pane>
+        <el-tab-pane name="phone">
+          <template #label>
+            <div class="label">
+              <el-icon><Iphone /></el-icon>
+              <div class="text">手机登录</div>
+            </div>
+          </template>
+          <div>mobile login</div>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <div class="controls">
       <el-checkbox v-model="isRememberPwd" label="记住密码" size="large" />
       <el-link href="http://www.baidu.com" type="primary">忘记密码</el-link>
     </div>
-    <el-button type="primary" class="login-btn" size="large">立即登录</el-button>
+    <el-button type="primary" class="login-btn" size="large" @click="printTabStatus"
+      >立即登录
+    </el-button>
   </div>
 </template>
 
@@ -19,6 +37,12 @@
 import { ref } from 'vue'
 
 const isRememberPwd = ref(false)
+const tabStatus = ref<string>('account')
+
+function printTabStatus() {
+  if (tabStatus.value == 'account') console.log('账号登录')
+  else console.log('手机登录')
+}
 </script>
 
 <style lang="less" scoped>
@@ -37,7 +61,7 @@ const isRememberPwd = ref(false)
     justify-content: center;
 
     .text {
-      margin-left: 5px;
+      margin-left: 8px;
     }
   }
 
