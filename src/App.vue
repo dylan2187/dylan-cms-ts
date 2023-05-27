@@ -1,8 +1,5 @@
 <template>
   <div class="app">
-    <h2>app</h2>
-    <router-link to="/main">mian</router-link>
-    <router-link to="/login">login</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -12,6 +9,5 @@
 .app {
   height: 100vh;
   width: 100vw;
-  background-color: skyblue;
 }
 </style>
