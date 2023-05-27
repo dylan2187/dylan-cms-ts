@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     'vue/comment-directive': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'vue/multi-word-component-names': 'off',
   },
 }
