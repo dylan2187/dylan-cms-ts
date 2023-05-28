@@ -11,7 +11,7 @@
               <div class="text">账号登录</div>
             </div>
           </template>
-          <pane-account></pane-account>
+          <pane-account ref="accountRef"></pane-account>
         </el-tab-pane>
         <!-- 手机登录的pane -->
         <el-tab-pane name="phone">
@@ -29,7 +29,11 @@
       <el-checkbox v-model="isRememberPwd" label="记住密码" size="large" />
       <el-link href="http://www.baidu.com" type="primary">忘记密码</el-link>
     </div>
-    <el-button type="primary" class="login-btn" size="large" @click="printTabStatus"
+    <el-button
+      type="primary"
+      class="login-btn"
+      size="large"
+      @click="handleLoginClick"
       >立即登录
     </el-button>
   </div>
@@ -41,10 +45,15 @@ import PaneAccount from './pane-account.vue'
 
 const isRememberPwd = ref(false)
 const tabStatus = ref<string>('account')
+const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
-function printTabStatus() {
-  if (tabStatus.value == 'account') console.log('账号登录')
-  else console.log('手机登录')
+function handleLoginClick() {
+  if (tabStatus.value == 'account') {
+    console.log('账号登录')
+    // console.log(accountRef.value?.loginAction().value)
+    const res = accountRef.value?.loginAction()
+    console.log(res)
+  } else console.log('手机登录')
 }
 </script>
 
