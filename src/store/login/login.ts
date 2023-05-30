@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { accountLoginRequest } from '@/service/login/login'
 import type { IAccount } from '@/types'
-import { localCache } from '@/utils/cache'
+import { localCache } from '@/utils/cache1'
 
 const LOGIN_TOKEN = 'login/token'
 
