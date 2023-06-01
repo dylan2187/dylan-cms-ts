@@ -3,7 +3,7 @@
     <!-- logo -->
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 class="title">Dylan-CMS</h2>
+      <h2 class="title" v-if="!isFold">Dylan-CMS</h2>
     </div>
     <!-- menu -->
 
@@ -36,7 +36,17 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import useLoginStore from '@/store/login/login'
+// 定义props接收属性
+defineProps({
+  isFold: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// 用户菜单的数据
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
 </script>
