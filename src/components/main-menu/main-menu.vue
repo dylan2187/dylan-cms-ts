@@ -18,6 +18,7 @@
         <el-sub-menu :index="item.id + ''">
           <template #title>
             <el-icon>
+              <!-- 动态组件 -->
               <component :is="item.icon.split('-icon-')[1]" />
             </el-icon>
             <span>{{ item.name }}</span>

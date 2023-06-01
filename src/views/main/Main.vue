@@ -5,7 +5,9 @@
         <main-menu></main-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <main-header></main-header>
+        </el-header>
         <el-main>
           <div class="main">Main</div>
         </el-main>
@@ -16,6 +18,7 @@
 
 <script setup lang="ts">
 import MainMenu from '@/components/main-menu/main-menu.vue'
+import MainHeader from '@/components/main-header/main-header.vue'
 </script>
 
 <style lang="less" scoped>
