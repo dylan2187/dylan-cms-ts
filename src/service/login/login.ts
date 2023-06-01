@@ -23,3 +23,14 @@ export function getUserInfoById(id: number) {
     url: `/users/${id}`
   })
 }
+
+/**
+ * @desc: 获取用户菜单
+ * @return: {*}
+ * @param {number} id
+ */
+export function getUserMenusByRoleId(id: number) {
+  return hyRequest.get({
+    url: `/role/${id}/menu`
+  })
+}
