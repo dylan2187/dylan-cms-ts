@@ -1,7 +1,19 @@
 <template>
-  <div class="main">
-    <h2>main: {{ counterStore.counter }}-{{ counterStore.doubleCounter }}</h2>
-    <button @click="logout">退出登录</button>
+  <div class="common-layout">
+    <el-container class="main-content">
+      <el-aside width="200px">Aside</el-aside>
+      <el-container>
+        <el-header>Header</el-header>
+        <el-main>
+          <div class="main">
+            <h2>
+              main: {{ counterStore.counter }}-{{ counterStore.doubleCounter }}
+            </h2>
+            <button @click="logout">退出登录</button>
+          </div>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
@@ -24,7 +36,19 @@ function logout() {
 </script>
 
 <style lang="less" scoped>
-.main {
-  color: red;
+.common-layout {
+  height: 100%;
+  .main-content {
+    height: 100%;
+    .el-aside {
+      background-color: greenyellow;
+    }
+    .el-header {
+      background-color: aquamarine;
+    }
+    .el-main {
+      background-color: olivedrab;
+    }
+  }
 }
 </style>
