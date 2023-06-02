@@ -13,9 +13,9 @@ import { LOGIN_TOKEN } from '@/global/constants'
 
 const useLoginStore = defineStore('login', {
   state: (): ILoginState => ({
-    token: localCache.getCache(LOGIN_TOKEN) ?? '',
-    userInfo: localCache.getCache('userInfo') ?? {},
-    userMenus: localCache.getCache('menuInfo') ?? []
+    token: '',
+    userInfo: {},
+    userMenus: []
   }),
   actions: {
     async loginAccountAction(account: IAccount) {
@@ -38,17 +38,24 @@ const useLoginStore = defineStore('login', {
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
 
-      // 重要：动态的添加路由
-      const routes = mapMenusToRoutes(userMenus)
-      console.log('routes', routes)
-      routes.forEach((route) => router.addRoute('main', route))
-
       // 4.进行本地缓存
-
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('menuInfo', userMenus)
       // 跳转到main
       router.push('/main')
+    },
+    loadLocalCache() {
+      const token = localCache.getCache(LOGIN_TOKEN)
+      const userInfo = localCache.getCache('userInfo')
+      const userMenus = localCache.getCache('menuInfo')
+      if (token && userInfo && userMenus) {
+        this.token = token
+        this.userInfo = userInfo
+        this.userMenus = userMenus
+        // 重要：动态的添加路由
+        const routes = mapMenusToRoutes(userMenus)
+        routes.forEach((route) => router.addRoute('main', route))
+      }
     }
   }
 })

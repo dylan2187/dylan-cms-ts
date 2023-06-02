@@ -31,6 +31,7 @@ import registerIcons from './global/register-icons'
 
 const app = createApp(App)
 app.use(registerIcons)
-app.use(router)
+
 app.use(pinia)
+app.use(router)
 app.mount('#app')
