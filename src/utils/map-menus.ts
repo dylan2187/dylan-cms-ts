@@ -16,6 +16,11 @@ function loadLocalRoutes() {
 }
 
 export let firstMenu: any = null
+/**
+ * @desc: 将菜单映射为路由，用于权限控制
+ * @return: {*}
+ * @param {any} userMenus
+ */
 export function mapMenusToRoutes(userMenus: any[]) {
   // 1.加载本地路由
   const localRoutes = loadLocalRoutes()
@@ -41,4 +46,21 @@ export function mapMenusToRoutes(userMenus: any[]) {
     }
   }
   return routes
+}
+
+/**
+ * @desc: 根据路径去匹配需要显示的菜单
+ * @return: {*}
+ * @param {string} route 所有的菜单
+ */
+export function mapRouteToMenu(path: string, userMenus: any[]) {
+  //从userMenu里找到route对应的菜单item
+  for (const menu of userMenus) {
+    for (const submenu of menu.children) {
+      if (submenu.url === path) {
+        return submenu
+      }
+    }
+  }
+  return undefined
 }
