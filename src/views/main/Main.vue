@@ -9,7 +9,9 @@
           <main-header @fold-change="handleFoldChange"></main-header>
         </el-header>
         <el-main>
-          <div class="main">Main</div>
+          <div class="main">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
