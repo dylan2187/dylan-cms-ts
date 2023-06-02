@@ -3,7 +3,7 @@
     <!-- logo -->
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 class="title" v-if="!isFold">Dylan-CMS</h2>
+      <h2 class="title" v-show="!isFold">Dylan-CMS</h2>
     </div>
     <!-- menu -->
 
