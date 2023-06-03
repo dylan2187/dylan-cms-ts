@@ -6,7 +6,9 @@
       </el-icon>
     </div>
     <div class="content">
-      <div class="breadcrumb">面包屑</div>
+      <div class="breadcrumb">
+        <header-crumb></header-crumb>
+      </div>
       <div class="info">
         <header-info></header-info>
       </div>
@@ -17,6 +19,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import HeaderInfo from './c-cpns/header-info.vue'
+import HeaderCrumb from './c-cpns/header-crumb.vue'
 
 const isFold = ref(false)
 

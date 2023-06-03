@@ -24,7 +24,6 @@ export let firstMenu: any = null
 export function mapMenusToRoutes(userMenus: any[]) {
   // 1.加载本地路由
   const localRoutes = loadLocalRoutes()
-  console.log('localRoutes', localRoutes)
 
   // 2.根据菜单去匹配正确的路由
   const routes: RouteRecordRaw[] = []
@@ -63,4 +62,29 @@ export function mapRouteToMenu(path: string, userMenus: any[]) {
     }
   }
   return undefined
+}
+
+/**
+ * @desc: 根据当前页面的路径来匹配其父级路径（面包屑的跳转路径）
+ * @return: {*}
+ * @param {string} path
+ * @param {any} userMenus
+ */
+interface IBreadcrumbs {
+  name: string
+  path: string
+}
+export function mapRouteToBreadcrumbs(path: string, userMenus: any[]) {
+  // 定义面包屑
+  const breadcrumbs: IBreadcrumbs[] = []
+  // 遍历获取面包屑的层级
+  for (const menu of userMenus) {
+    for (const submenu of menu.children) {
+      if (submenu.url === path) {
+        breadcrumbs.push({ name: menu.name, path: menu.url }) //父级的名称和路径
+        breadcrumbs.push({ name: submenu.name, path: submenu.url }) //二级的名称和路径
+      }
+    }
+  }
+  return breadcrumbs
 }

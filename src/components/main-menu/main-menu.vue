@@ -64,13 +64,10 @@ function handleItemClick(item: any) {
 
 // ElMenu默认选中的菜单item
 const route = useRoute()
-// const defaultActive = ref(firstMenu.id + '')
-
 const defaultActive = computed(() => {
   const pathMenu = mapRouteToMenu(route.path, userMenus)
   return pathMenu.id + ''
 })
-console.log(mapRouteToMenu(route.path, userMenus).id)
 </script>
 
 <style lang="less" scoped>
