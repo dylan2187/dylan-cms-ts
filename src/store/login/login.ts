@@ -10,6 +10,7 @@ import { mapMenusToRoutes } from '@/utils/map-menus'
 
 import router from '@/router'
 import { LOGIN_TOKEN } from '@/global/constants'
+import useMainStore from '../main/main'
 
 const useLoginStore = defineStore('login', {
   state: (): ILoginState => ({
@@ -41,6 +42,10 @@ const useLoginStore = defineStore('login', {
       // 4.进行本地缓存
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('menuInfo', userMenus)
+
+      // 5. 请求所有roles / departments数据
+      const mainStore = useMainStore()
+      mainStore.fetchEntireData()
       // 跳转到main
       router.push('/main')
     },
@@ -52,6 +57,10 @@ const useLoginStore = defineStore('login', {
         this.token = token
         this.userInfo = userInfo
         this.userMenus = userMenus
+
+        // 如果刷新，重新请求所有roles / departments数据
+        const mainStore = useMainStore()
+        mainStore.fetchEntireData()
         // 重要：动态的添加路由
         const routes = mapMenusToRoutes(userMenus)
         routes.forEach((route) => router.addRoute('main', route))
