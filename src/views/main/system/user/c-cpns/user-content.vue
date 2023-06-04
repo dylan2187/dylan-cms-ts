@@ -102,19 +102,23 @@ fetchUserListData()
 
 // 2. 获取userList的数据并展示
 const { usersList, usersTotalCount } = storeToRefs(systemStore)
-console.log('userList', usersList)
-
-// 3. 页码/ 分页相关
 
 // 4. 定义函数，用于发送网络请求
 
-function fetchUserListData() {
+function fetchUserListData(formData: any = {}) {
   const size = pageSize.value
   const offset = (currentPage.value - 1) * size
   const info = { size, offset }
+  // 合并用户查询表单与页码数据
+  const queryInfo = Object.assign(formData, info)
 
-  systemStore.postUsersListAction(info)
+  systemStore.postUsersListAction(queryInfo)
 }
+
+// 将发送网络请求的方法暴露给user
+defineExpose({
+  fetchUserListData
+})
 
 function handleSizeChange() {
   fetchUserListData()

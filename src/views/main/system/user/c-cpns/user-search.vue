@@ -87,11 +87,15 @@ const searchForm = reactive({
 const formRef = ref<InstanceType<typeof ElForm>>()
 function handleResetClick() {
   formRef.value?.resetFields()
+  emit('resetClick')
 }
 
 // 表单查询操作
+// 思路：user-search和user-content是兄弟组件，将查询的事件发送到父组件user，
+// 把user-content发送网络请求的方法暴露给user，通过user调用
+const emit = defineEmits(['queryClick', 'resetClick'])
 function handleQueryClick() {
-  console.log(searchForm)
+  emit('queryClick', searchForm)
 }
 </script>
 
