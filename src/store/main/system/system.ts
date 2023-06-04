@@ -17,7 +17,7 @@ const useSystemStore = defineStore('system', {
     async deleteUserAction(id: number) {
       const { code } = await deleteUserById(id)
       if (code === 1) {
-        console.log('删除成功')
+        this.postUsersListAction({ size: 10, offset: 0 })
       }
     }
   }

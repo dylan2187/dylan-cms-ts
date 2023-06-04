@@ -2,7 +2,11 @@
   <div class="content">
     <div class="header">
       <h3 class="title">用户列表</h3>
-      <el-button type="primary" size="large" icon="CirclePlus"
+      <el-button
+        type="primary"
+        size="large"
+        icon="CirclePlus"
+        @click="handleNewUserClick"
         >新建用户</el-button
       >
     </div>
@@ -102,6 +106,9 @@ import type { IUser } from '@/types/index'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { formatUTC } from '@/utils/format'
+// 自定义事件
+const emit = defineEmits(['newCilck'])
+
 // 1. 发起system中的action，请求userList的数据
 const currentPage = ref(1)
 const pageSize = ref(10)
@@ -131,7 +138,11 @@ defineExpose({
 // 删除和编辑的操作
 function handleDeleteBtnClick(id: number) {
   systemStore.deleteUserAction(id)
-  fetchUserListData()
+}
+
+// 新建用户的逻辑
+function handleNewUserClick() {
+  emit('newCilck', true)
 }
 
 function handleSizeChange() {

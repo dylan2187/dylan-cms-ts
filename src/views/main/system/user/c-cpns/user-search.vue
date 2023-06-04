@@ -49,7 +49,7 @@
               range-separator="-"
               start-placeholder="开始时间"
               end-placeholder="结束时间"
-              size="default"
+              size="large"
             />
           </el-form-item>
         </el-col>
