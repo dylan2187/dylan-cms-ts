@@ -5,7 +5,11 @@
       @reset-click="handleResetClick"
     />
 
-    <user-content ref="contentRef" @new-cilck="handleNewClick" />
+    <user-content
+      ref="contentRef"
+      @new-cilck="handleNewClick"
+      @edit-click="handleEditClick"
+    />
     <user-modal ref="modalRef" />
   </div>
 </template>
@@ -29,6 +33,11 @@ function handleResetClick() {
 // 接收content中的新建用户事件
 function handleNewClick(flag: boolean) {
   modalRef.value?.setDislogVisible()
+}
+
+// 编辑用户的弹出框
+function handleEditClick(data: any) {
+  modalRef.value?.setDislogVisible(false, data)
 }
 </script>
 

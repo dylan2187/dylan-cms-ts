@@ -69,7 +69,13 @@
 
         <el-table-column align="center" label="操作" width="200px">
           <template #default="scope">
-            <el-button size="small" icon="Edit" type="primary" text>
+            <el-button
+              size="small"
+              icon="Edit"
+              type="primary"
+              text
+              @click="handleEditBtnClick(scope.row)"
+            >
               编辑
             </el-button>
             <el-button
@@ -107,7 +113,7 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import { formatUTC } from '@/utils/format'
 // 自定义事件
-const emit = defineEmits(['newCilck'])
+const emit = defineEmits(['newCilck', 'editClick'])
 
 // 1. 发起system中的action，请求userList的数据
 const currentPage = ref(1)
@@ -138,6 +144,9 @@ defineExpose({
 // 删除和编辑的操作
 function handleDeleteBtnClick(id: number) {
   systemStore.deleteUserAction(id)
+}
+function handleEditBtnClick(data: any) {
+  emit('editClick', data)
 }
 
 // 新建用户的逻辑

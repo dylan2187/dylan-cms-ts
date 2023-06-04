@@ -34,3 +34,16 @@ export function newUserData(userInfo: any) {
     data: userInfo
   })
 }
+
+/**
+ * @desc: 编辑用户
+ * @return: {*}
+ * @param {number} id
+ * @param {any} userInfo
+ */
+export function editUserData(id: number, userInfo: any) {
+  return hyRequest.patch({
+    url: `/users/${id}`,
+    data: userInfo
+  })
+}

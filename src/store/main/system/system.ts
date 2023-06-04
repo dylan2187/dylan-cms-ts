@@ -1,5 +1,6 @@
 import {
   deleteUserById,
+  editUserData,
   newUserData,
   postUserListData
 } from '@/service/main/system/system'
@@ -28,6 +29,12 @@ const useSystemStore = defineStore('system', {
       // 创建新的用户
       const { code } = await newUserData(userInfo)
       // 重新请求数据
+      if (code === 1) {
+        this.postUsersListAction({ size: 10, offset: 0 })
+      }
+    },
+    async editUserDataAction(id: number, userInfo: any) {
+      const { code } = await editUserData(id, userInfo)
       if (code === 1) {
         this.postUsersListAction({ size: 10, offset: 0 })
       }
