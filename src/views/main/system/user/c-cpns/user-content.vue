@@ -64,12 +64,20 @@
         </el-table-column>
 
         <el-table-column align="center" label="操作" width="200px">
-          <el-button size="small" icon="Edit" type="primary" text>
-            编辑
-          </el-button>
-          <el-button size="small" icon="Delete" type="danger" text>
-            删除
-          </el-button>
+          <template #default="scope">
+            <el-button size="small" icon="Edit" type="primary" text>
+              编辑
+            </el-button>
+            <el-button
+              size="small"
+              icon="Delete"
+              type="danger"
+              text
+              @click="handleDeleteBtnClick(scope.row.id)"
+            >
+              删除
+            </el-button>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -119,6 +127,12 @@ function fetchUserListData(formData: any = {}) {
 defineExpose({
   fetchUserListData
 })
+
+// 删除和编辑的操作
+function handleDeleteBtnClick(id: number) {
+  systemStore.deleteUserAction(id)
+  fetchUserListData()
+}
 
 function handleSizeChange() {
   fetchUserListData()
