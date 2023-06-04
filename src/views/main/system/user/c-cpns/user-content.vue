@@ -51,14 +51,16 @@
           </template>
         </el-table-column>
         <el-table-column align="center" label="创建时间" prop="createAt">
-          <template #default="scope">{{
-            formatUTC(scope.row.createAt)
-          }}</template>
+          <template #default="scope">
+            <el-icon><timer /></el-icon>
+            {{ formatUTC(scope.row.createAt) }}
+          </template>
         </el-table-column>
         <el-table-column align="center" label="更新时间" prop="updateAt">
-          <template #default="scope">{{
-            formatUTC(scope.row.updateAt)
-          }}</template>
+          <template #default="scope">
+            <el-icon><timer /></el-icon>
+            {{ formatUTC(scope.row.updateAt) }}</template
+          >
         </el-table-column>
 
         <el-table-column align="center" label="操作" width="200px">
@@ -71,6 +73,18 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="pagination">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[10, 20, 30]"
+        small="small"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="usersTotalCount"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -78,15 +92,36 @@
 import useSystemStore from '@/store/main/system/system'
 import type { IUser } from '@/types/index'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { formatUTC } from '@/utils/format'
 // 1. 发起system中的action，请求userList的数据
+const currentPage = ref(1)
+const pageSize = ref(10)
 const systemStore = useSystemStore()
-systemStore.postUsersListAction()
+fetchUserListData()
 
 // 2. 获取userList的数据并展示
-const { usersList } = storeToRefs(systemStore)
+const { usersList, usersTotalCount } = storeToRefs(systemStore)
 console.log('userList', usersList)
+
+// 3. 页码/ 分页相关
+
+// 4. 定义函数，用于发送网络请求
+
+function fetchUserListData() {
+  const size = pageSize.value
+  const offset = (currentPage.value - 1) * size
+  const info = { size, offset }
+
+  systemStore.postUsersListAction(info)
+}
+
+function handleSizeChange() {
+  fetchUserListData()
+}
+function handleCurrentChange() {
+  fetchUserListData()
+}
 </script>
 
 <style lang="less" scoped>
@@ -116,5 +151,11 @@ console.log('userList', usersList)
     margin-left: 0;
     padding: 5px 8px;
   }
+}
+
+.pagination {
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

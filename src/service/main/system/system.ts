@@ -1,11 +1,8 @@
 import hyRequest from '@/service'
 
-export function postUserListData() {
+export function postUserListData(queryInfo: any) {
   return hyRequest.post({
     url: '/users/list',
-    data: {
-      offset: 0,
-      size: 10
-    }
+    data: queryInfo
   })
 }
