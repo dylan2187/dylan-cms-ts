@@ -24,7 +24,7 @@ import { ElMessage } from 'element-plus'
 import type { FormRules, ElForm } from 'element-plus'
 import useLoginStore from '@/store/login/login'
 import type { IAccount } from '@/types'
-import { localCache } from '@/utils/cache1'
+import { localCache } from '@/utils/cache'
 import { LOGIN_NAME, LOGIN_PWD } from '@/global/constants'
 
 // 1.定义account数据

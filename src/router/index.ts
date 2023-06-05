@@ -1,5 +1,5 @@
 import { LOGIN_TOKEN } from '@/global/constants'
-import { localCache } from '@/utils/cache1'
+import { localCache } from '@/utils/cache'
 import { firstMenu } from '@/utils/map-menus'
 import { createRouter, createWebHashHistory } from 'vue-router'
 

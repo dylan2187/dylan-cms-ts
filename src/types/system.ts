@@ -1,8 +1,3 @@
-export interface ISystemState {
-  usersList: IUser[]
-  usersTotalCount: number
-}
-
 export interface IUser {
   id: number
   name: string
@@ -14,4 +9,12 @@ export interface IUser {
   createAt: string
   updateAt: string
   realname: string
+}
+
+export interface ISystemState {
+  usersList: IUser[]
+  usersTotalCount: number
+
+  pageList: any[]
+  pageTotalCount: number
 }
