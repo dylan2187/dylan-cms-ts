@@ -10,7 +10,8 @@
       :content-config="contentConfig"
       @new-click="handleNewClick"
       @edit-click="handleEditClick"
-    />
+    >
+    </page-content>
     <page-modal ref="modalRef" />
   </div>
 </template>
