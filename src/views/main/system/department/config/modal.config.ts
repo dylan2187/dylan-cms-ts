@@ -1,4 +1,4 @@
-const modalConfig = {
+const modalConfig: any = {
   pageName: 'department',
   header: {
     titleNew: '新建部门',
@@ -21,7 +21,8 @@ const modalConfig = {
       type: 'select',
       label: '选择部门',
       prop: 'parentId',
-      placeholder: '请选择上级部门'
+      placeholder: '请选择上级部门',
+      options: []
     }
   ]
 }
