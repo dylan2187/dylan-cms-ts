@@ -81,7 +81,7 @@ for (const item of props.modalConfig.formItems) {
   initialData[item.prop] = item.initialValue ?? ''
 }
 
-const formData = reactive<any>({ initialData })
+const formData = reactive<any>(initialData)
 const isNewRef = ref(true)
 const editData = ref()
 
@@ -114,10 +114,14 @@ function handleConfirmClick() {
   dialogVisible.value = false
   if (!isNewRef.value && editData.value) {
     // 编辑用户的数据
-    systemStore.editPageDataAction('department', editData.value.id, formData)
+    systemStore.editPageDataAction(
+      props.modalConfig.pageName,
+      editData.value.id,
+      formData
+    )
   } else {
     // 创建新的部门
-    systemStore.newPageDataAction('department', formData)
+    systemStore.newPageDataAction(props.modalConfig.pageName, formData)
   }
 }
 

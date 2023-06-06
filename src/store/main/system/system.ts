@@ -57,19 +57,19 @@ const useSystemStore = defineStore('system', {
     async deletePageByIdAction(pageName: string, id: number) {
       const { code } = await deletePageById(pageName, id)
       if (code === 1) {
-        this.postUsersListAction({ size: 10, offset: 0 })
+        this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
     },
     async newPageDataAction(pageName: string, pageInfo: any) {
       const { code } = await newPageData(pageName, pageInfo)
       if (code === 1) {
-        this.postUsersListAction({ size: 10, offset: 0 })
+        this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
     },
     async editPageDataAction(pageName: string, id: number, pageInfo: any) {
-      const { code } = editPageData(pageName, id, pageInfo)
+      const { code } = await editPageData(pageName, id, pageInfo)
       if (code === 1) {
-        this.postUsersListAction({ size: 10, offset: 0 })
+        this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
     }
   }

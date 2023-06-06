@@ -62,7 +62,7 @@ export function deletePageById(pageName: string, id: number) {
 }
 export function newPageData(pageName: string, pageInfo: any) {
   return hyRequest.post({
-    url: `/{pageName}`,
+    url: `/${pageName}`,
     data: pageInfo
   })
 }
