@@ -65,9 +65,11 @@ import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import { formatUTC } from '@/utils/format'
 import { ref } from 'vue'
+import contentConfig from '@/views/main/system/department/config/content.config'
 
 interface IProps {
   contentConfig: {
+    pageName: string
     header?: {
       title?: string
       btnTitle?: string
@@ -107,12 +109,12 @@ function fetchPageListData(formData: any = {}) {
 
   // 2.发起网络请求
   const queryInfo = { ...pageInfo, ...formData }
-  systemStore.postPageListAction('department', queryInfo)
+  systemStore.postPageListAction(props.contentConfig.pageName, queryInfo)
 }
 
 // 5.删除/新建/编辑的操作
 function handleDeleteBtnClick(id: number) {
-  systemStore.deletePageByIdAction('department', id)
+  systemStore.deletePageByIdAction(props.contentConfig.pageName, id)
 }
 function handleNewUserClick() {
   emit('newClick')

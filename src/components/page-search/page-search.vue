@@ -14,11 +14,15 @@
                 />
               </template>
               <template v-if="item.type === 'select'">
-                <el-input
+                <el-select
                   v-model="searchForm[item.prop]"
                   :placeholder="item.placeholder"
                   style="width: 100%"
-                />
+                >
+                  <template v-for="option in item.options" :key="option.value">
+                    <el-option :label="option.label" :value="option.value" />
+                  </template>
+                </el-select>
               </template>
               <template v-if="item.type === 'date-picker'">
                 <el-date-picker
