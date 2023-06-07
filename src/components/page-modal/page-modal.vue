@@ -59,7 +59,6 @@ import { reactive, ref } from 'vue'
 import useMainStore from '@/store/main/main'
 import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
-import modalConfig from '@/views/main/system/department/config/modal.config'
 
 interface IProps {
   modalConfig: {
@@ -103,8 +102,11 @@ function setModalVisible(isNew: boolean = true, itemData?: any) {
   } else {
     // 新建数据
     for (const key in formData) {
-      formData[key] = ''
+      // 从配置文件里取初始值（有的话）给formData初始化
+      const item = props.modalConfig.formItems.find((item) => item.prop === key)
+      formData[key] = item ? item.initialValue : ''
     }
+
     editData.value = null
   }
 }

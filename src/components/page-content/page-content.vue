@@ -65,7 +65,6 @@ import { storeToRefs } from 'pinia'
 import useSystemStore from '@/store/main/system/system'
 import { formatUTC } from '@/utils/format'
 import { ref } from 'vue'
-import contentConfig from '@/views/main/system/department/config/content.config'
 
 interface IProps {
   contentConfig: {
@@ -79,7 +78,6 @@ interface IProps {
 }
 
 const props = defineProps<IProps>()
-
 // 定义事件
 const emit = defineEmits(['newClick', 'editClick'])
 
