@@ -26,6 +26,8 @@ import searchConfig from './config/search.config'
 import contentConfig from './config/content.config'
 import modalConfig from './config/modal.config'
 import useMainStore from '@/store/main/main'
+import usePageContent from '@/hooks/usePageContent'
+import usePageModal from '@/hooks/usePageModal'
 
 // 对modalConfig进行操作
 const modalConfigRef = computed(() => {
@@ -42,23 +44,12 @@ const modalConfigRef = computed(() => {
   return modalConfig
 })
 
+// setup中相同逻辑的抽取：hooks
 // 点击search, content的操作
-const contentRef = ref<InstanceType<typeof PageContent>>()
-function handleQueryClick(queryInfo: any) {
-  contentRef.value?.fetchPageListData(queryInfo)
-}
-function handleResetClick() {
-  contentRef.value?.fetchPageListData()
-}
+const { contentRef, handleQueryClick, handleResetClick } = usePageContent()
 
 // 点击content, modal的操作
-const modalRef = ref<InstanceType<typeof PageModal>>()
-function handleNewClick() {
-  modalRef.value?.setModalVisible()
-}
-function handleEditClick(itemData: any) {
-  modalRef.value?.setModalVisible(false, itemData)
-}
+const { modalRef, handleNewClick, handleEditClick } = usePageModal()
 </script>
 
 <style scoped></style>
