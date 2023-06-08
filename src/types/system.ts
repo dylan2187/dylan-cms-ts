@@ -17,4 +17,5 @@ export interface ISystemState {
 
   pageList: any[]
   pageTotalCount: number
+  menuIds: any[]
 }

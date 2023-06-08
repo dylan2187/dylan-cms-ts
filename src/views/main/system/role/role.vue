@@ -17,17 +17,13 @@
       :other-info="otherInfo"
     >
       <template #menuList>
-        <el-tree-select
+        <el-tree
           ref="treeRef"
-          multiple
-          v-model="value"
           :data="entireMenus"
           show-checkbox
-          highlight-current
           node-key="id"
-          :props="defaultProps"
-          style="width: 100%"
-          @check="handleTreeCheck"
+          :props="{ children: 'children', label: 'name' }"
+          @check="handleElTreeCheck"
         />
       </template>
     </page-modal>
@@ -49,10 +45,12 @@ import usePageContent from '@/hooks/usePageContent'
 import useMainStore from '@/store/main/main'
 
 const { contentRef, handleQueryClick, handleResetClick } = usePageContent()
-const { modalRef, handleNewClick, handleEditClick } = usePageModal()
-import { ref } from 'vue'
+const { modalRef, handleNewClick, handleEditClick } = usePageModal(editCallback)
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import type { ElTreeSelect } from 'element-plus'
+import type { ElTree, ElTreeSelect } from 'element-plus'
+import useSystemStore from '@/store/main/system/system'
+import { mapMenuListToIds } from '@/utils/map-menus'
 
 const value = ref()
 
@@ -67,13 +65,25 @@ const { entireMenus } = storeToRefs(mainStore)
 
 //获取到el-tree-select选中的key，需要把这个数组传递到page-modal的formData里一块提交
 const otherInfo = ref({})
-function handleTreeCheck(data1: any, data2: any) {
+function handleElTreeCheck(data1: any, data2: any) {
   const menuList = [...data2.checkedKeys, ...data2.halfCheckedKeys]
-  console.table(menuList)
   otherInfo.value = { menuList }
 }
+const treeRef = ref<InstanceType<typeof ElTree>>()
 
-const treeRef = ref<InstanceType<typeof ElTreeSelect>>()
+// const systemStore = useSystemStore()
+// const { menuIds } = storeToRefs(systemStore)
+// nextTick(() => {
+//   treeRef.value?.setCheckedKeys([15])
+// })
+
+function editCallback(itemData: any) {
+  nextTick(() => {
+    console.log('treeRef.value', treeRef.value)
+    const menuIds = mapMenuListToIds(itemData.menuList)
+    treeRef.value?.setCheckedKeys(menuIds)
+  })
+}
 </script>
 
 <style lang="less" scoped></style>

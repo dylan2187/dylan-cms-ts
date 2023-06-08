@@ -10,13 +10,15 @@ import {
 } from '@/service/main/system/system'
 import { defineStore } from 'pinia'
 import type { ISystemState } from '@/types/index'
+import { mapMenuListToIds } from '@/utils/map-menus'
 
 const useSystemStore = defineStore('system', {
   state: (): ISystemState => ({
     usersList: [],
     usersTotalCount: 0,
     pageList: [],
-    pageTotalCount: 0
+    pageTotalCount: 0,
+    menuIds: [15]
   }),
   actions: {
     async postUsersListAction(queryInfo: any) {
@@ -71,6 +73,11 @@ const useSystemStore = defineStore('system', {
       if (code === 1) {
         this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
+    },
+    async setMenuListAction(menuList: any) {
+      // 把itemData.menuList里的id全部取出来（itemData对象是嵌套关系的）
+      const res = mapMenuListToIds(menuList)
+      this.menuIds = [...res]
     }
   }
 })

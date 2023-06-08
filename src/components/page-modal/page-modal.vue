@@ -99,8 +99,13 @@ function setModalVisible(isNew: boolean = true, itemData?: any) {
   isNewRef.value = isNew
   if (!isNew && itemData) {
     // 编辑数据
+
     for (const key in formData) {
       formData[key] = itemData[key]
+    }
+    if (itemData.menuList) {
+      // 如果有这个数组，就把他映射成ids存起来
+      systemStore.setMenuListAction(itemData.menuList)
     }
     editData.value = itemData
   } else {
