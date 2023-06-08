@@ -38,6 +38,9 @@
                   end-placeholder="结束时间"
                 />
               </template>
+              <template v-else-if="item.type === 'custom'">
+                <slot :name="item.slotName"></slot>
+              </template>
             </el-form-item>
           </template>
         </el-form>
@@ -69,6 +72,7 @@ interface IProps {
     }
     formItems: any[]
   }
+  otherInfo?: any
 }
 
 const props = defineProps<IProps>()
@@ -114,16 +118,22 @@ function setModalVisible(isNew: boolean = true, itemData?: any) {
 // 3.点击了确定的逻辑
 function handleConfirmClick() {
   dialogVisible.value = false
+
+  let infoData = { ...formData }
+  if (props.otherInfo) {
+    infoData = { ...formData, ...props.otherInfo }
+  }
+
   if (!isNewRef.value && editData.value) {
     // 编辑用户的数据
     systemStore.editPageDataAction(
       props.modalConfig.pageName,
       editData.value.id,
-      formData
+      infoData
     )
   } else {
     // 创建新的部门
-    systemStore.newPageDataAction(props.modalConfig.pageName, formData)
+    systemStore.newPageDataAction(props.modalConfig.pageName, infoData)
   }
 }
 

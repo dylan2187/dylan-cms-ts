@@ -1,8 +1,8 @@
 const modalConfig = {
   pageName: 'role',
   header: {
-    newTitle: '新建角色',
-    editTitle: '编辑角色'
+    titleNew: '新建角色',
+    titleEdit: '编辑角色'
   },
   formItems: [
     {
@@ -20,7 +20,8 @@ const modalConfig = {
     },
     {
       type: 'custom',
-      slotName: 'menulist'
+      label: '选择权限',
+      slotName: 'menuList'
     }
   ]
 }

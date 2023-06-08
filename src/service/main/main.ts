@@ -19,3 +19,13 @@ export function getEntireDepartments() {
     url: '/department/list'
   })
 }
+
+/**
+ * @desc: 获取菜单（权限）列表
+ * @return: {*}
+ */
+export function getEntireMenus() {
+  return hyRequest.post({
+    url: '/menu/list'
+  })
+}
