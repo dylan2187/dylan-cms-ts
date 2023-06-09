@@ -102,6 +102,11 @@ export function mapMenuListToIds(menuList: any[]) {
     }
   }
   recurseGetId(menuList)
-
+  // menuList.forEach((item) => {
+  //   ids.push(item.id)
+  //   if (item.children && item.children.length) {
+  //     ids = ids.concat(mapMenuListToIds(item.children))
+  //   }
+  // })
   return ids
 }

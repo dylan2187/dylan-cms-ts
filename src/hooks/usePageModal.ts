@@ -10,7 +10,7 @@ function usePageModal(editCallback?: EditFnType) {
   function handleEditClick(itemData: any) {
     // 1.让modal显示出来
     modalRef.value?.setModalVisible(false, itemData)
-    // 2.编辑的回调
+    // 2.编辑的回调（用于回显，需要使用nextTick）
     if (editCallback) editCallback(itemData)
   }
   return { modalRef, handleNewClick, handleEditClick }

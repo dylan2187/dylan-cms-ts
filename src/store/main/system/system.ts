@@ -77,7 +77,7 @@ const useSystemStore = defineStore('system', {
     async setMenuListAction(menuList: any) {
       // 把itemData.menuList里的id全部取出来（itemData对象是嵌套关系的）
       const res = mapMenuListToIds(menuList)
-      this.menuIds = [...res]
+      this.menuIds = res
     }
   }
 })

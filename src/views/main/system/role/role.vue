@@ -45,7 +45,7 @@ import usePageContent from '@/hooks/usePageContent'
 import useMainStore from '@/store/main/main'
 
 const { contentRef, handleQueryClick, handleResetClick } = usePageContent()
-const { modalRef, handleNewClick, handleEditClick } = usePageModal(editCallback)
+const { modalRef, handleEditClick } = usePageModal(editCallback)
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import type { ElTree, ElTreeSelect } from 'element-plus'
@@ -71,17 +71,26 @@ function handleElTreeCheck(data1: any, data2: any) {
 }
 const treeRef = ref<InstanceType<typeof ElTree>>()
 
-// const systemStore = useSystemStore()
-// const { menuIds } = storeToRefs(systemStore)
+const systemStore = useSystemStore()
+const { menuIds } = storeToRefs(systemStore)
 // nextTick(() => {
 //   treeRef.value?.setCheckedKeys([15])
 // })
 
 function editCallback(itemData: any) {
+  // console.log('treeRef.value1:', treeRef.value)  //此时page-modal还未被挂载，所以treeRef是不存在的
   nextTick(() => {
-    console.log('treeRef.value', treeRef.value)
-    const menuIds = mapMenuListToIds(itemData.menuList)
-    treeRef.value?.setCheckedKeys(menuIds)
+    // const menuIds = mapMenuListToIds(itemData.menuList)
+    treeRef.value?.setCheckedKeys(menuIds.value)
+  })
+}
+
+function handleNewClick() {
+  // 1. 显示modal
+  modalRef.value?.setModalVisible()
+  // 2. 清空树形控件
+  nextTick(() => {
+    treeRef.value?.setCheckedKeys([])
   })
 }
 </script>
