@@ -110,3 +110,24 @@ export function mapMenuListToIds(menuList: any[]) {
   // })
   return ids
 }
+
+/**
+ * @desc:从菜单映射到按钮的权限
+ * @return: {*}
+ * @param {any} menuList
+ */
+export function mapMenuListToPermissions(menuList: any[]) {
+  const permissions: string[] = []
+  function recurseGetPermissions(menus: any[]) {
+    for (const item of menus) {
+      if (item.type === 3) {
+        permissions.push(item.permission)
+      } else {
+        recurseGetPermissions(item.children ?? [])
+      }
+    }
+  }
+  recurseGetPermissions(menuList)
+  console.log('mappermissions', permissions)
+  return permissions
+}

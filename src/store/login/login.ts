@@ -6,7 +6,7 @@ import {
 } from '@/service/login/login'
 import type { IAccount, ILoginState } from '@/types'
 import { localCache } from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenuListToPermissions, mapMenusToRoutes } from '@/utils/map-menus'
 
 import router from '@/router'
 import { LOGIN_TOKEN } from '@/global/constants'
@@ -16,7 +16,8 @@ const useLoginStore = defineStore('login', {
   state: (): ILoginState => ({
     token: '',
     userInfo: {},
-    userMenus: []
+    userMenus: [],
+    permissions: []
   }),
   actions: {
     async loginAccountAction(account: IAccount) {
@@ -43,6 +44,10 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('menuInfo', userMenus)
 
+      // 获取登录用户的所有按钮权限
+      const permissions: string[] = mapMenuListToPermissions(userMenus)
+      this.permissions = permissions
+
       // 5. 请求所有roles / departments数据
       const mainStore = useMainStore()
       mainStore.fetchEntireData()
@@ -61,6 +66,9 @@ const useLoginStore = defineStore('login', {
         // 如果刷新，重新请求所有roles / departments数据
         const mainStore = useMainStore()
         mainStore.fetchEntireData()
+        // 获取登录用户的所有按钮权限
+        const permissions: string[] = mapMenuListToPermissions(userMenus)
+        this.permissions = permissions
         // 重要：动态的添加路由
         const routes = mapMenusToRoutes(userMenus)
         routes.forEach((route) => router.addRoute('main', route))
