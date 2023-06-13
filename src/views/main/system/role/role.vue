@@ -45,7 +45,10 @@ import usePageContent from '@/hooks/usePageContent'
 import useMainStore from '@/store/main/main'
 
 const { contentRef, handleQueryClick, handleResetClick } = usePageContent()
-const { modalRef, handleEditClick } = usePageModal(editCallback)
+const { modalRef, handleNewClick, handleEditClick } = usePageModal(
+  newCallback,
+  editCallback
+)
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import type { ElTree, ElTreeSelect } from 'element-plus'
@@ -84,15 +87,20 @@ function editCallback(itemData: any) {
     treeRef.value?.setCheckedKeys(menuIds.value)
   })
 }
-
-function handleNewClick() {
-  // 1. 显示modal
-  modalRef.value?.setModalVisible()
-  // 2. 清空树形控件
+function newCallback() {
   nextTick(() => {
     treeRef.value?.setCheckedKeys([])
   })
 }
+
+// function handleNewClick() {
+//   // 1. 显示modal
+//   modalRef.value?.setModalVisible()
+//   // 2. 清空树形控件
+//   nextTick(() => {
+//     treeRef.value?.setCheckedKeys([])
+//   })
+// }
 </script>
 
 <style lang="less" scoped></style>

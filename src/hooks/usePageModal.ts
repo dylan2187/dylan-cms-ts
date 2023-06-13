@@ -1,11 +1,15 @@
 import type pageModalVue from '@/components/page-modal/page-modal.vue'
 import { ref } from 'vue'
-type EditFnType = (data: any) => void
+type callbackFnType = (data?: any) => void
 
-function usePageModal(editCallback?: EditFnType) {
+function usePageModal(
+  newCallback?: callbackFnType,
+  editCallback?: callbackFnType
+) {
   const modalRef = ref<InstanceType<typeof pageModalVue>>()
   function handleNewClick() {
     modalRef.value?.setModalVisible()
+    if (newCallback) newCallback()
   }
   function handleEditClick(itemData: any) {
     // 1.让modal显示出来

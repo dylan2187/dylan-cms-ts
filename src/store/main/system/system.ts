@@ -11,6 +11,7 @@ import {
 import { defineStore } from 'pinia'
 import type { ISystemState } from '@/types/index'
 import { mapMenuListToIds } from '@/utils/map-menus'
+import useMainStore from '../main'
 
 const useSystemStore = defineStore('system', {
   state: (): ISystemState => ({
@@ -61,18 +62,24 @@ const useSystemStore = defineStore('system', {
       if (code === 1) {
         this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
+      const mainStore = useMainStore()
+      mainStore.fetchEntireData()
     },
     async newPageDataAction(pageName: string, pageInfo: any) {
       const { code } = await newPageData(pageName, pageInfo)
       if (code === 1) {
         this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
+      const mainStore = useMainStore()
+      mainStore.fetchEntireData()
     },
     async editPageDataAction(pageName: string, id: number, pageInfo: any) {
       const { code } = await editPageData(pageName, id, pageInfo)
       if (code === 1) {
         this.postPageListAction(pageName, { offset: 0, size: 10 })
       }
+      const mainStore = useMainStore()
+      mainStore.fetchEntireData()
     },
     async setMenuListAction(menuList: any) {
       // 把itemData.menuList里的id全部取出来（itemData对象是嵌套关系的）
